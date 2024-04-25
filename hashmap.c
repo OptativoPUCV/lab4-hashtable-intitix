@@ -76,8 +76,19 @@ void eraseMap(HashMap * map,  char * key) {
 
 Pair * searchMap(HashMap * map,  char * key) {   
 
-  return NULL;
+long index = hash(key, map->capacity);
+map->current = index;
+
+while (map->buckets[index] != NULL) {
+    if (strcmp(map->buckets[index]->key, key) == 0) {
+        return map->buckets[index];
+    }
+    index = (index + 1) % map->size;
+    if (index == map->current) {
+        break; // Ya se revisaron todos los elementos
+    }
 }
+} 
 
 Pair * firstMap(HashMap * map) {
 
