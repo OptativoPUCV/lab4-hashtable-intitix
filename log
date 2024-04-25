@@ -107,3 +107,21 @@ Thu 25 Apr 2024 06:46:19 PM UTC:
  tests:  1|5
 total_score: 10/70
 1b6825a
+Thu 25 Apr 2024 06:46:37 PM UTC: 
+ hashmap.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+In file included from test.c:4:
+hashmap.c: In function ‘searchMap’:
+hashmap.c:78:32: error: ‘value’ undeclared (first use in this function)
+   78 |   if(map==NULL || key==NULL || value==NULL) return;
+      |                                ^~~~~
+hashmap.c:78:32: note: each undeclared identifier is reported only once for each function it appears in
+hashmap.c:78:45: error: ‘return’ with no value, in function returning non-void [-Werror=return-type]
+   78 |   if(map==NULL || key==NULL || value==NULL) return;
+      |                                             ^~~~~~
+hashmap.c:77:8: note: declared here
+   77 | Pair * searchMap(HashMap * map,  char * key) {
+      |        ^~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+b38dcab
