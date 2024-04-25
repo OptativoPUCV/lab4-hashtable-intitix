@@ -69,9 +69,15 @@ HashMap * createMap(long capacity) {
 
 }
 
-void eraseMap(HashMap * map,  char * key) {    
-  
-
+void eraseMap(HashMap *map, char *key) {
+    Pair *pair = searchMap(map, key);
+    if (pair != NULL) {
+        free(pair->key);
+        free(pair->value);
+        free(pair);
+        map->buckets[map->current] = NULL;
+        map->size--;
+    }
 }
 
 Pair *searchMap(HashMap *map, char *key) {
@@ -93,12 +99,13 @@ Pair *searchMap(HashMap *map, char *key) {
 
 Pair * firstMap(HashMap * map) {
     map->current = -1;
+    
     for (long i = 0; i < map->capacity; i++) {
         if (map->buckets[i] != NULL) {
             map->current = i;
             return map->buckets[i];
         }
-      
+        
     }
     
     return NULL;
