@@ -70,13 +70,22 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap *map, char *key) {
-    Pair *pair = searchMap(map, key);
-    if (pair != NULL) {
-        free(pair->key);
-        free(pair->value);
-        free(pair);
-        map->buckets[map->current] = NULL;
-        map->size--;
+    int index = hash(key, map->capacity);
+    map->current = index;
+
+    while (map->buckets[index] != NULL) {
+        if (strcmp(map->buckets[index]->key, key) == 0) {
+            free(map->buckets[index]->key);
+            free(map->buckets[index]->value);
+            free(map->buckets[index]);
+            map->buckets[index] = NULL;
+            map->size--;
+            return;
+        }
+        index = (index + 1) % map->capacity;
+        if (index == map->current) {
+            break;  // Ya se revisaron todos los elementos
+        }
     }
 }
 
