@@ -74,11 +74,8 @@ void eraseMap(HashMap *map, char *key) {
     map->current = index;
 
     while (map->buckets[index] != NULL) {
-        if (strcmp(map->buckets[index]->key, key) == 0) {
-            free(map->buckets[index]->key);
-            free(map->buckets[index]->value);
-            free(map->buckets[index]);
-            map->buckets[index] = NULL;
+        if (map->buckets[index]->key != NULL && strcmp(map->buckets[index]->key, key) == 0) {
+            map->buckets[index]->key = NULL; // Invalidar la clave
             map->size--;
             return;
         }
